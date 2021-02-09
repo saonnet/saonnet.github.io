@@ -19,15 +19,25 @@
 }
 
 :root {
+
+	/*colors*/
 	--liquorice : rgb(10, 5, 2);
 	--yellow-ncs : rgb(255,211,0);	
 	--red-ncs : rgb(196,2,51);
+
+	/*units*/
 	--body-font-size-small : 14px;
 	--body-font-size : 16px;
 	--menu-font-size : 24px;
 	--heading-font-size-small : calc(var(--body-font-size-small) * 1.7789);
 	--heading-font-size : calc(var(--body-font-size) * 1.7789);
 	--heading-font-size-large : calc(var(--body-font-size) * 1.7789 * 1.3);
+	
+	/*images*/
+	--cursor-black : url("../assets/images/cur_black_24dp.svg") , default;
+	--cursor-yellow : url("../assets/images/cur_yellow_24dp.svg") , default;
+	--bg-black : url("../assets/images/palette/black_noise.png");
+	--bg-yellow : url("../assets/images/palette/noisy_yellow.png");
 }
 
 @media (orientation : portrait) {
@@ -58,7 +68,7 @@
 		font-family: Amiri;
 		text-transform: lowercase;
 		font-size: var(--heading-font-size-large);
-		
+
 	}
 
 	#logo::before {
@@ -105,7 +115,7 @@ body {
 	color : var(--liquorice , black);
 	font-family: MontR;
 	font-size: var(--body-font-size);
-	background-image: url("../assets/images/palette/noisy_yellow.png"); 
+	background-image: var(--bg-yellow);
 	background-repeat:repeat;
 	cursor : url("../assets/images/cur_black_24dp.svg") , default;
 }

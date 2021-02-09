@@ -57,6 +57,8 @@
 	--liquorice : rgb(10, 5, 2);
 	--yellow-ncs : rgb(255,211,0);	
 	--red-ncs : rgb(196,2,51);
+	
+	/*units*/
 	--body-font-size : 16px;
 	--menu-font-size : 24px;
 	--heading-font-size : calc(var(--body-font-size) * 1.7789);
