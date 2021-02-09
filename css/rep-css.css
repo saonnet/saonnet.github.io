@@ -1,0 +1,199 @@
+@media (orientation : portrait) {
+	main {
+		width : 85vw;
+	}
+
+	#menu li {
+		display: block;
+		margin-bottom: 24px;
+	}
+	
+	#menu li:first-child {
+		margin-bottom: 96px;
+	}
+	#menu li:last-child {
+		margin-bottom: 0;
+	}
+}
+
+@media (orientation : landscape) {
+	main {
+		width : 50vw;
+	}
+
+	#menu li {
+		display: inline-block;
+		margin-right: 24px;
+	}
+
+	#menu li:first-child {
+		margin-right: 96px;
+	}
+	#menu li:last-child {
+		margin-right: 0;
+	}
+
+}
+
+
+@font-face {
+	src : url("../assets/fonts/Montserrat/Montserrat-Bold.ttf");
+	font-family : "MontB";
+}
+
+@font-face {
+	src : url("../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+	font-family : "MontSB";
+}
+
+@font-face {
+	src : url("../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+	font-family : "MontR";
+}
+
+:root {
+	--liquorice : rgb(10, 5, 2);
+	--yellow-ncs : rgb(255,211,0);	
+	--red-ncs : rgb(196,2,51);
+	--body-font-size : 16px;
+	--menu-font-size : 24px;
+	--heading-font-size : calc(var(--body-font-size) * 1.7789);
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: url("../assets/images/palette/noisy_yellow.png") repeat;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: flex-start;
+	box-sizing: border-box;
+	font-size: var(--body-font-size);
+	font-family: MontR;
+	color : var(--liquorice , black);
+	cursor : url("../assets/images/cur_black_24dp.svg") , default;
+}
+
+a {
+	position: relative;
+	z-index: 9;
+	padding: 0 12px;
+	display: inline-block;
+	text-decoration: none;
+	outline: none;
+	border: none;
+	text-transform: uppercase;
+	font-family: MontSB;
+	font-size : 16px;
+	color : var(--liquorice , black);
+	cursor : url("../assets/images/cur_black_24dp.svg") , default;
+}
+
+a div {
+	position: absolute;
+	z-index: 8;
+	width: 0;
+	height: 1px;
+	background: var(--liquorice , black);
+	top: 50%;
+	left: 0;
+	transform: translateY(-1px);
+	transition: width 250ms linear 0ms;
+}
+
+a:hover div {
+	width: 100%;
+}
+
+
+main {
+	margin : 36px 0;
+}
+
+main h1 {
+	margin : 0;
+	padding : 0;
+	font-family: MontB;
+	font-size: var(--heading-font-size);
+}
+
+main > a {
+	transform: translateX(-12px);
+	margin : 0 0 72px 0;
+}
+
+.out-of-page {
+	top : -100vh;
+}
+
+.inside-of-page {
+	top : 0;
+}
+
+#menu {
+	overflow : hidden;
+	background-image: url("../assets/images/palette/black_noise.png");
+	background-repeat: repeat;
+	width: 100vw;
+	height: 100vh;
+	box-sizing: border-box;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right : 0;
+	z-index: 10;
+	opacity : 1;
+	transition: top 1s ease 0s;
+	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+}
+
+#menu ul {
+	list-style: none;
+	padding: 0;
+}
+
+#menu a  {
+	color : var(--yellow-ncs , yellow);
+	position: relative;
+	z-index: 12;
+	padding: 0 12px;
+	text-decoration: none;
+	outline: none;
+	border: none;
+	text-transform: uppercase;
+	display: inline-block;
+	font-family: MontSB;
+	font-size: var(--menu-font-size);
+	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+}
+
+#menu a div {
+	position: absolute;
+	z-index: 11;
+	width: 0;
+	height: 2px;
+	background: var(--yellow-ncs , yellow);
+	top: 50%;
+	left: 0;
+	transform: translateY(-2px);
+	transition: width 250ms linear 0ms;
+}
+
+#menu a:hover div {
+	width: 100%;
+}
+
+
+#menu li:first-child a {
+	color : var(--red-ncs , red);
+	font-size: calc(var(--menu-font-size) * 1.7789);
+}
+
+#menu li:first-child div {
+	height: 4px;
+	transform: translateY(-4px);
+	background : var(--red-ncs , red);
+}

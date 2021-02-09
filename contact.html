@@ -1,0 +1,173 @@
+<html>
+
+	<head>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel = "stylesheet" href = "css/rep-css.css" />
+		<link rel="stylesheet" href="css/contact.css" />
+		
+		<script type = "text/javascript" src="js/menu.js"></script>
+		<script type = "text/javascript" src="js/countries-filler.js"></script>
+
+	</head>
+
+	<body>
+
+		<!-- resuable menu -->
+		<div id = "menu" class="out-of-page">
+
+
+			<ul>
+
+				<li><a href = "#" class="menu-curtain-toggle-btn"><div></div>close</a></li>
+				<li><a href = "index.html"><div></div>HOME</a></li>
+				<li><a href = "skills.html"><div></div>skills</a></li>
+				<li><a href = "portfolio.html"><div></div>portfolio</a></li>
+				<li><a href = "contact.html"><div></div>contact</a></li>
+
+			</ul>
+
+
+		</div>
+
+		<main>
+
+			<a href="#" class="menu-curtain-toggle-btn">
+				<div>
+				</div>
+				Menu
+			</a>
+
+			<h1>Contact Me</h1>
+
+			<p>There are quite a few ways to get in touch with me , some of them are</p>
+
+			<section class = "social-links-container">
+
+				<a href = "mailto:saonnet@outlook.com"><img src = "assets/images/mail.svg"> Email</a>
+				<a href = "https://www.linkedin.com/in/shivansh-anand-280865185/" target="_blank"><img src = "assets/images/linkedin.svg"> LinkedIN</a>
+				<a href = "https://www.instagram.com/saonnet_/" target="_blank"><img src = "assets/images/instagram.svg"> Instagram</a>
+				<a href = "https://twitter.com/saonnet_" target="_blank"><img src = "assets/images/twitter.svg"> Twitter</a>
+				<a href = "https://github.com/saonnet/" target="_blank"><img src = "assets/images/github.svg"> Github</a>
+
+			</section>
+
+			<p>But if you want to hire me , then you've to fill this form and I'll get in touch with you ASAP</p>
+
+			<h1 id = "contact-heading">Contact me regarding a project</h1>
+
+			<form name = "contact-form">
+
+				<p>Tell me something about you ...</p>
+
+				<div class="form-field-container">
+
+					<input type = "text" name = "name" placeholder = "Your name " required/>
+					<input type="email" name = "email" placeholder = "Your email" required/>
+
+				</div>
+
+				<div class="form-field-container">
+
+					<input type = "url" name = "website" placeholder = "Your website"/>
+					<input type = "url" name = "social-media" placeholder = "Any one social media account url ?" required />
+
+				</div>
+
+				<div class="form-field-container">
+
+					<select name = "country" required>
+
+					</select>
+
+				</div>
+
+				<p>Now , some information about the project</p>
+
+				<div class="form-field-container">
+
+					<select name = "project-type" required>
+
+						<option value="" disabled selected hidden>Type of project ?</option>
+						<option value="Other">Other</option>
+						<option value = "FrontEnd [ Web ]">FrontEnd [ Web ]</option>
+						<option value = "BackEnd [ Web ]">BackEnd [ Web ]</option>
+						<option value = "Full Stack Development">Full Stack Dev</option>
+						<option value = "Android App">Android App</option>
+
+					</select>
+
+					<select name = "project-stage" required>
+
+						<option value="" disabled selected hidden>Current stage of project</option>
+						<option value="start">Just starting</option>
+						<option value="intermediate">Am in the middle</option>
+						<option value="end">Close to completion</option>
+
+					</select>
+
+				</div>
+
+				<textarea name="project-info" placeholder="Describe yourself and your here..."  required></textarea>
+
+				<p>Almost done , just a couple of things ...</p>
+
+				<div class="form-field-container">
+
+					<select name="source"  required>
+
+						<option value = "" disabled selected hidden>You heard 'bout me from where ?</option>
+						<option value="linkedin">LinkedIN</option>
+						<option value="fb">Facebook</option>
+						<option value="twt">Twitter</option>
+						<option value="insta">Instagram</option>
+						<option value="freelancing-site">A freelancing site</option>			<option value="search-engine">From a search engine</option>
+						<option value="some-site">Some other site</option>
+						<option value="wom">Word of mouth</option>
+						<option value="random">Just found you ...</option>
+
+					</select>
+
+					<select name="rating"  required>
+
+						<option value = "" disabled selected hidden>How would you rate this site ?</option>
+						<option value="5">&#10032;
+							&#10032;
+							&#10032;
+							&#10032;
+							&#10032;
+						</option>
+						<option value="4">&#10032;
+							&#10032;
+							&#10032;
+							&#10032;
+						</option>
+						<option value="3">&#10032;
+							&#10032;
+							&#10032;
+						</option>
+
+						<option value = "2">&#10032;
+							&#10032;
+						</option>
+
+						<option value="1">&#10032;
+						</option>
+
+					</select>
+
+				</div>
+
+				<input type="submit" value="Submit" />
+
+
+
+			</form>
+
+		</main>
+
+	</body>
+
+
+</html>

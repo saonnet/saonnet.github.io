@@ -1,0 +1,147 @@
+<html>
+
+	<head>
+		
+		<link rel = "stylesheet" href = "css/rep-css.css" />
+		<link rel="stylesheet" href="css/portfolio.css" />
+		
+		<script type = "text/javascript" src="js/menu.js"></script>
+		
+		<script type = "text/javascript">
+		
+		
+			window.addEventListener("load", () => {
+				
+				let closeBtns = document.querySelectorAll(".portfolio-toggle");
+				let portfolioItems = document.querySelectorAll(".portfolio-items");
+				
+				for(let i = 0 ; i<closeBtns.length; i++) {
+					
+					closeBtns[i].onclick = togglePortfolio;	
+					closeBtns[i].associatePortfolio = portfolioItems[i];
+					
+				}
+				
+			}, false);
+			
+			function togglePortfolio() {
+				
+				let cl = this.associatePortfolio.classList;
+				let portfolio = this.associatePortfolio;
+					
+				if(cl.contains("portfolio-items-visible")) {
+					cl.remove("portfolio-items-visible");
+					cl.add("portfolio-items-hidden");
+					this.textContent = "SHOW";
+				} else {
+					cl.remove("portfolio-items-hidden");
+					cl.add("portfolio-items-visible");	
+					this.textContent = "CLOSE";
+				}
+			}
+		
+		</script>
+		
+	</head>
+
+	<body>
+		
+		<!-- resuable menu -->
+		<div id = "menu" class="out-of-page">
+
+
+			<ul>
+
+				<li><a href = "#" class="menu-curtain-toggle-btn"><div></div>close</a></li>
+				<li><a href = "index.html"><div></div>HOME</a></li>
+				<li><a href = "skills.html"><div></div>skills</a></li>
+				<li><a href = "portfolio.html"><div></div>portfolio</a></li>
+				<li><a href = "contact.html"><div></div>contact</a></li>
+
+			</ul>
+
+
+		</div>
+
+		<main>
+
+			<a href="#" class="menu-curtain-toggle-btn">
+				<div>
+				</div>
+				Menu
+			</a>
+			
+			<h1>Portfolio</h1>
+			
+			<p>Stuff which I've made in past, click on any of them to go to it's "online page"</p>
+			
+			<section>
+				
+				<div class = "portfolio-heading">
+					<h2>Android Apps</h2>
+					<h2 class = "portfolio-toggle">CLOSE</h2>
+				</div>
+				
+				<div class="portfolio-items portfolio-items-visible">
+			
+					<ul>
+
+						<li><a href = "https://github.com/saonnet/MSPC_QR_APP" target = "_blank">QR Attendance App</a></li>
+						<li><a href = "https://play.google.com/store/apps/details?id=com.bitpix.todo&hl=en_SG" target = "_blank">ToDo List App</a></li>
+						<li><a href = "https://github.com/saonnet/BitpixNews" target = "_blank">News App</a></li>
+						<li><a href = "https://play.google.com/store/apps/details?id=com.bitpix.tales&hl=en_SG" target = "_blank">Tales app</a></li>
+
+					</ul>
+					
+				</div>
+			
+			</section>
+			
+			<section>
+				
+				<div class = "portfolio-heading">
+					<h2>Web Apps</h2>
+					<h2 class = "portfolio-toggle">CLOSE</h2>
+				</div>
+				
+				<div class="portfolio-items portfolio-items-visible">
+					
+					<ul>
+
+						<li><a href = "https://github.com/saonnet/Java-EE-Blog-System" target = "_blank">Custom blog</a></li>
+						<li><a href = "https://github.com/saonnet/MLSA-Forms" target = "_blank">MLSA Forms</a></li>
+						<li><a href = "proto1.html" target = "_blank">Personal site</a></li>
+
+					</ul>
+					
+				</div>
+			
+			</section>
+			
+			<section>
+				
+				<div class = "portfolio-heading">
+					<h2>Video Games</h2>
+					<h2 class = "portfolio-toggle">CLOSE</h2>
+				</div>
+				
+				<div class="portfolio-items portfolio-items-visible">
+			
+					<ul>
+
+						<li><a href = "https://github.com/saonnet/KBC_GodotEngine" target = "_blank">KBC Clone</a></li>
+						<li><a href = "https://play.google.com/store/apps/details?id=com.bitpix.nx&hl=en&gl=US" target = "_blank">Ninja Xscape</a></li>
+						<li><a href = "https://apk.support/app/org.ZombieGarden.AnandInc" target = "_blank">Zombie Garden</a></li>
+						
+					</ul>
+					
+				</div>
+			
+			</section>
+		
+		</main>
+	
+	</body>
+
+
+</html>

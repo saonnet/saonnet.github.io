@@ -1,0 +1,78 @@
+main h1 {
+	margin : 0 0 48px 0;
+	padding : 0;
+	font-family: MontB;
+}
+
+main p {
+	margin : 0 0 32px 0;
+	padding : 0;
+}
+
+.portfolio-heading {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.portfolio-heading h2 {
+	font-size: 16px;
+	text-transform: capitalize;
+	font-family: MontSB;
+}
+
+.portfolio-toggle {
+	cursor: pointer;
+	text-transform: uppercase;
+	cursor: url("../assets/images/cur_black_24dp.svg") , default;
+	transition: color 250ms ease-in 0s;
+}
+
+.portfolio-toggle:hover {
+	color : var(--red-ncs , red);
+}
+
+.portfolio-items {
+	display : flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	overflow : hidden;
+}
+
+.portfolio-items a {
+	font-family: MontR;
+	margin : 0;
+	transition: transform 250ms ease-in 0s;
+}
+
+.portfolio-items a:hover {
+	transform: translateX(8px);
+}
+
+.portfolio-items a::before {
+	content: "\279E ";
+}
+
+.portfolio-items-hidden {
+	display: none;
+}
+
+.portfolio-items-visible {
+	display: flex;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-right: 16px;
+	text-transform: capitalize;
+}
+
+ul li {
+	margin-bottom: 4px;
+}
+
+ul li:last-child {
+	margin-bottom: 32px;
+}
