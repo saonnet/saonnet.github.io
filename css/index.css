@@ -117,7 +117,7 @@ body {
 	font-size: var(--body-font-size);
 	background-image: var(--bg-yellow);
 	background-repeat:repeat;
-	cursor : url("../assets/images/cur_black_24dp.svg") , default;
+	cursor : var(--cursor-black);
 }
 
 main {
@@ -130,14 +130,14 @@ main {
 #picture-frame {
 	flex: 1;
 	height: 100%;
-	background-image: url("../assets/images/palette/black_noise.png");
+	background-image: var(--bg-black);
 	background-repeat:repeat;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
 	transition: transform 500ms ease-out 0s;
-	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+	cursor : var(--cursor-yellow);
 }
 
 #picture-frame:hover {
@@ -155,7 +155,7 @@ main nav {
 }
 
 main a {
-	cursor : url("../assets/images/cur_black_24dp.svg") , default;
+	cursor : var(--cursor-black);
 }
 
 main nav a  {
@@ -332,7 +332,7 @@ main nav ul li:first-child {
 	outline : none;
 	text-transform: capitalize;
 	transition: background 250ms ease-in 0s , color 250ms ease-in 0s;
-	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+	cursor : var(--cursor-yellow);
 	font-size: var(--body-font-size);
 }
 
@@ -372,7 +372,7 @@ footer .l2 {
 	position: absolute;
 	top : 0;
 	left : 0;
-	background-image: url("../assets/images/palette/black_noise.png");
+	background-image: var(--bg-black);
 	background-repeat: repeat;
 	width : 100vw;
 	height: 100vh;
@@ -460,7 +460,7 @@ footer .l2 {
 
 #menu {
 	overflow : hidden;
-	background-image: url("../assets/images/palette/black_noise.png");
+	background-image: var(--bg-black);
 	background-repeat: repeat;
 	height: 100vh;
 	box-sizing: border-box;
@@ -473,7 +473,7 @@ footer .l2 {
 	z-index: 15;
 	opacity : 1;
 	transition: top 1s ease 0s;
-	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+	cursor : var(--cursor-yellow);
 }
 
 #menu ul {
@@ -507,7 +507,7 @@ footer .l2 {
 	display: inline-block;
 	font-family: MontSB;
 	font-size: var(--body-font-size);
-	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+	cursor : var(--cursor-yellow);
 }
 
 #menu a div {
