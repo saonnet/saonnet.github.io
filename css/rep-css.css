@@ -52,18 +52,27 @@
 }
 
 :root {
+	
+	/* colors */
 	--liquorice : rgb(10, 5, 2);
 	--yellow-ncs : rgb(255,211,0);	
 	--red-ncs : rgb(196,2,51);
 	--body-font-size : 16px;
 	--menu-font-size : 24px;
 	--heading-font-size : calc(var(--body-font-size) * 1.7789);
+	
+	/* imgs */
+	--cursor-black : url("../assets/images/cur_black_24dp.svg") , default;
+	--cursor-yellow : url("../assets/images/cur_yellow_24dp.svg") , default;
+	--bg-black : url("../assets/images/palette/black_noise.png");
+	--bg-yellow : url("../assets/images/palette/noisy_yellow.png");
 }
 
 body {
 	margin: 0;
 	padding: 0;
-	background: url("../assets/images/palette/noisy_yellow.png") repeat;
+	background: var(--bg-yellow);
+	background-repeat: repeat;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: center;
@@ -72,7 +81,7 @@ body {
 	font-size: var(--body-font-size);
 	font-family: MontR;
 	color : var(--liquorice , black);
-	cursor : url("../assets/images/cur_black_24dp.svg") , default;
+	cursor : var(--cursor-black);
 }
 
 a {
@@ -87,7 +96,7 @@ a {
 	font-family: MontSB;
 	font-size : 16px;
 	color : var(--liquorice , black);
-	cursor : url("../assets/images/cur_black_24dp.svg") , default;
+	cursor : var(--cursor-yellow);
 }
 
 a div {
@@ -133,7 +142,7 @@ main > a {
 
 #menu {
 	overflow : hidden;
-	background-image: url("../assets/images/palette/black_noise.png");
+	background-image: var(--bg-black);
 	background-repeat: repeat;
 	width: 100vw;
 	height: 100vh;
@@ -147,7 +156,7 @@ main > a {
 	z-index: 10;
 	opacity : 1;
 	transition: top 1s ease 0s;
-	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+	cursor : var(--cursor-yellow);
 }
 
 #menu ul {
@@ -167,7 +176,7 @@ main > a {
 	display: inline-block;
 	font-family: MontSB;
 	font-size: var(--menu-font-size);
-	cursor : url("../assets/images/cur_yellow_24dp.svg") , default;
+	cursor : var(--cursor-yellow);
 }
 
 #menu a div {
