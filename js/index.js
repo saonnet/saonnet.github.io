@@ -18,19 +18,19 @@ function setVideoSize() {
 }
 
 function loadVid(obj) {
-	
+
 	let req = new XMLHttpRequest();
 	req.open("GET", obj.video, true);
 	req.responseType = "blob";
 	req.send();
-	
+
 	req.onreadystatechange = function (){
 		if(this.status == 200 && this.readyState == 4) {
 			obj.vidBlobUrl = URL.createObjectURL(req.response);
 			console.log(`created for video ${obj.video}`);
 		}
 	}
-	
+
 }
 
 function getContentArray() {
@@ -94,7 +94,12 @@ function setInfo(section) {
 
 	vid.pause();
 
-	src.setAttribute("src", section.video);
+	if(section.vidBlobUrl) {
+		console.log("setting from blob");
+		src.setAttribute("src", section.vidBlobUrl);
+	} else {
+		src.setAttribute("src", section.video);
+	}
 
 	vid.load();
 	vid.play();
@@ -159,7 +164,7 @@ window.addEventListener("load" , () => {
 	}, 400);
 
 	let sections = getContentArray();
-	
+
 	for(let i of sections)
 		loadVid(i);
 
