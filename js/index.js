@@ -29,7 +29,7 @@ function getContentArray() {
 	};
 
 	let two = {
-		label : "skills",
+		label : "Repertoire",
 		title : "My toolshed",
 		text : "I use a lot of different tools to make things , I have mastered some and am learning some",
 		link : "skills.html",
