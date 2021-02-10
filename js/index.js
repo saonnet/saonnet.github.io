@@ -1,5 +1,12 @@
+/*
+
+	coded entirely by Shivansh Anand with a little help from discord channels and this stackoverflow thread : https://stackoverflow.com/questions/9616236/html5-video-full-preload-in-javascript
+
+*/
+
 let currIndex = 0;
 let lastDotIndex = 0;
+let sections = getContentArray();
 
 function setVideoSize() {
 
@@ -27,7 +34,6 @@ function loadVid(obj) {
 	req.onreadystatechange = function (){
 		if(this.status == 200 && this.readyState == 4) {
 			obj.vidBlobUrl = URL.createObjectURL(req.response);
-			console.log(`created for video ${obj.video}`);
 		}
 	}
 
@@ -95,7 +101,6 @@ function setInfo(section) {
 	vid.pause();
 
 	if(section.vidBlobUrl) {
-		console.log("setting from blob");
 		src.setAttribute("src", section.vidBlobUrl);
 	} else {
 		src.setAttribute("src", section.video);
@@ -120,7 +125,7 @@ function setInfo(section) {
 
 }
 
-function scrollHandler(ev, sections) {
+function scrollHandler(ev) {
 
 	let menu = document.getElementById("menu");
 
@@ -163,23 +168,37 @@ window.addEventListener("load" , () => {
 		document.getElementById("loading-screen").style.display = "none";
 	}, 400);
 
-	let sections = getContentArray();
+	setVideoSize();
 
-	for(let i of sections)
-		loadVid(i);
+	//let sections = getContentArray();
+
+	/*loading from second section , cause first vid is loaded by html page itself , adding first vid at last*/
+	for(let i = 1; i<sections.length; i++)
+		loadVid(sections[i]);
+	loadVid(sections[0]);
 
 	document.body.onkeyup = (ev) => {
 		//down arrow - 40 , up arrow - 38
 		let dir = ev.keyCode == 40 ? 1 : 0;
-		scrollHandler(dir, sections);
+		scrollHandler(dir);
 	}
 
 	document.body.onwheel = () => {
 		//delta y positive if scrolled down ( show next content ) , negative if scrolled up
-		scrollHandler(event.deltaY, sections);
+		scrollHandler(event.deltaY);
 	}
 
-	setVideoSize();
+	let ham = new Hammer(document.body);
+
+	ham.on("swipeup" , function(ev) {
+		console.log("swipe up");
+		scrollHandler(1);
+	});
+
+	ham.on("swipedown" , function(ev) {
+		console.log("swipe up");
+		scrollHandler(0);
+	});
 
 
 
