@@ -17,6 +17,22 @@ function setVideoSize() {
 
 }
 
+function loadVid(obj) {
+	
+	let req = new XMLHttpRequest();
+	req.open("GET", obj.video, true);
+	req.responseType = "blob";
+	req.send();
+	
+	req.onreadystatechange = function (){
+		if(this.status == 200 && this.readyState == 4) {
+			obj.vidBlobUrl = URL.createObjectURL(req.response);
+			console.log(`created for video ${obj.video}`);
+		}
+	}
+	
+}
+
 function getContentArray() {
 
 	let one = {
@@ -25,6 +41,7 @@ function getContentArray() {
 		text : "I am a creator , I make things which can be used by everyone else on this Planet",
 		link : "about.html",
 		video : "assets/videos/apple_hello.mp4",
+		vidBlobUrl : null,
 		dotIndex : 0
 	};
 
@@ -34,6 +51,7 @@ function getContentArray() {
 		text : "I use a lot of different tools to make things , I have mastered some and am learning some",
 		link : "skills.html",
 		video : "assets/videos/css_hello.mp4",
+		vidBlobUrl : null,
 		dotIndex : 1
 	};
 
@@ -43,6 +61,7 @@ function getContentArray() {
 		text : "In past I've made things used by a lot of people and some things which are used only by me",
 		link : "portfolio.html",
 		video : "assets/videos/art_wall.mp4",
+		vidBlobUrl : null,
 		dotIndex : 2
 	};
 
@@ -52,6 +71,7 @@ function getContentArray() {
 		text : "Wanna hire me to make something ? Let's get rolling ",
 		link : "contact.html",
 		video : "assets/videos/sob.mp4",
+		vidBlobUrl : null,
 		dotIndex : 3		
 	};
 
@@ -95,14 +115,12 @@ function setInfo(section) {
 
 }
 
-function scrollHandler(ev) {
+function scrollHandler(ev, sections) {
 
 	let menu = document.getElementById("menu");
 
 	if(menu.classList.contains("inside-of-page"))
 		menu.className = "out-of-page";
-
-	let sections = getContentArray();
 
 	let getProperIndex= (idx) => {
 
@@ -140,15 +158,20 @@ window.addEventListener("load" , () => {
 		document.getElementById("loading-screen").style.display = "none";
 	}, 400);
 
+	let sections = getContentArray();
+	
+	for(let i of sections)
+		loadVid(i);
+
 	document.body.onkeyup = (ev) => {
 		//down arrow - 40 , up arrow - 38
 		let dir = ev.keyCode == 40 ? 1 : 0;
-		scrollHandler(dir);
+		scrollHandler(dir, sections);
 	}
 
 	document.body.onwheel = () => {
 		//delta y positive if scrolled down ( show next content ) , negative if scrolled up
-		scrollHandler(event.deltaY);
+		scrollHandler(event.deltaY, sections);
 	}
 
 	setVideoSize();
