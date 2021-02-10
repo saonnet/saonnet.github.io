@@ -23,7 +23,7 @@ function getContentArray() {
 		label : "introduction",
 		title : "Hey ! this is shivansh",
 		text : "I am a creator , I make things which can be used by everyone else on this Planet",
-		link : "#",
+		link : "about.html",
 		video : "assets/videos/apple_hello.mp4",
 		dotIndex : 0
 	};
