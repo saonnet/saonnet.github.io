@@ -127,9 +127,7 @@ function scrollHandler(ev) {
 
 	let menu = document.getElementById("menu");
 	let vid = document.querySelector("video");
-	let info = document.querSelector("#information");
-	
-	console.log(info);
+	let info = document.querySelector("#information");
 
 	if(menu.classList.contains("inside-of-page"))
 		menu.className = "out-of-page";
@@ -199,11 +197,9 @@ window.addEventListener("load" , () => {
 	
 	/* swipe detection using xswiper library */
 	let xwiper = new Xwiper(document.body);
-	
+
 	xwiper.onSwipeRight(() => scrollHandler(1));
 	xwiper.onSwipeLeft(() => scrollHandler(0));
-
-
 
 }, false);
 
