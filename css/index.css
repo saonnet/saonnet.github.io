@@ -76,7 +76,7 @@
 	}
 
 	#scroll-container > label::after {
-		content: "swipe up/down";
+		content: "swipe left/right";
 	}
 }
 
@@ -150,6 +150,10 @@ main {
 
 #picture-frame:hover {
 	transform: scale(0.95 , 0.95);
+}
+
+video  {
+	transition: opacity 250ms ease-in 0s;
 }
 
 main nav {
@@ -309,7 +313,6 @@ main nav ul li:first-child {
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
-	opacity : 1;
 	transition: opacity 250ms ease-in 0s;
 }
 
@@ -542,11 +545,4 @@ footer .l2 {
 
 .op-1 {
 	opacity : 1;
-}
-
-video  {
-
-	opacity : 1;
-	transition: opacity 250ms ease-in 0s;
-
 }
