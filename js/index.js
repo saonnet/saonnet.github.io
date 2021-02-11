@@ -1,6 +1,6 @@
 /*
 
-	coded entirely by Shivansh Anand with a little help from discord channels and this stackoverflow thread : https://stackoverflow.com/questions/9616236/html5-video-full-preload-in-javascript
+	coded entirely by Shivansh Anand with a little help from discord channels, xswiper and this stackoverflow thread : https://stackoverflow.com/questions/9616236/html5-video-full-preload-in-javascript
 
 */
 
@@ -16,8 +16,6 @@ function setVideoSize() {
 	let pfWidth = picFrame.offsetWidth;
 
 	let dim = Math.round(0.70 * pfWidth);
-
-	console.log(`${pfWidth} px , ${dim}`);
 
 	pic.setAttribute("width" , dim + "px");
 	pic.setAttribute("height" , dim + "px");
@@ -128,6 +126,8 @@ function setInfo(section) {
 function scrollHandler(ev) {
 
 	let menu = document.getElementById("menu");
+	let vid = document.querySelector("video");
+	let info = document.querySelector("#information");
 
 	if(menu.classList.contains("inside-of-page"))
 		menu.className = "out-of-page";
@@ -143,6 +143,9 @@ function scrollHandler(ev) {
 
 
 	}
+	
+	vid.className = "op-0";
+	info.className = "op-0";
 
 	if(ev > 0) {
 
@@ -155,8 +158,12 @@ function scrollHandler(ev) {
 		currIndex = getProperIndex(currIndex);
 
 	}
-
-	setInfo(sections[currIndex]);
+	
+	setTimeout(() => {
+		setInfo(sections[currIndex]);
+		vid.className = "op-1";
+		info.className = "op-1";
+	}, 250);
 
 }
 
@@ -187,18 +194,12 @@ window.addEventListener("load" , () => {
 		//delta y positive if scrolled down ( show next content ) , negative if scrolled up
 		scrollHandler(event.deltaY);
 	}
-
-	let ham = new Hammer(document.body);
-
-	ham.on("swipeup" , function(ev) {
-		console.log("swipe up");
-		scrollHandler(1);
-	});
-
-	ham.on("swipedown" , function(ev) {
-		console.log("swipe up");
-		scrollHandler(0);
-	});
+	
+	/* swipe detection using xswiper library */
+	let xwiper = new Xwiper(document.body);
+	
+	xwiper.onSwipeUp(() => scrollHandler(1));
+	xwiper.onSwipeDown(() => scrollHandler(0));
 
 
 
