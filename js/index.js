@@ -198,8 +198,8 @@ window.addEventListener("load" , () => {
 	/* swipe detection using xswiper library */
 	let xwiper = new Xwiper(document.body);
 
-	xwiper.onSwipeRight(() => scrollHandler(1));
-	xwiper.onSwipeLeft(() => scrollHandler(0));
+	xwiper.onSwipeRight(() => scrollHandler(0));
+	xwiper.onSwipeLeft(() => scrollHandler(1));
 
 }, false);
 
