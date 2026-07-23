@@ -21,13 +21,11 @@
 title: Shivansh Anand
 email: saonnet@outlook.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  A blog about software engineering, backend architecture, and clean systems.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://saonnet.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: saonnet
-linked_username: saonnet
+linkedin_username: saonnet
 
 # Build settings
 theme: minima

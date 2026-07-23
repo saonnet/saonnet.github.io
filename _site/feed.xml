@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-07-23T00:36:19+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shivansh Anand</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2026/07/23/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2026-07-23T00:22:34+05:30</published><updated>2026-07-23T00:22:34+05:30</updated><id>http://localhost:4000/jekyll/update/2026/07/23/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2026/07/23/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-07-23T14:13:29+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">Shivansh Anand</title><subtitle>A blog about software engineering, backend architecture, and clean systems.</subtitle><entry><title type="html">BigDecimal vs Double: When to Use Which (And Why Your Math Might Be Wrong)</title><link href="http://localhost:4000/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float.html" rel="alternate" type="text/html" title="BigDecimal vs Double: When to Use Which (And Why Your Math Might Be Wrong)" /><published>2026-07-23T13:30:00+05:30</published><updated>2026-07-23T13:30:00+05:30</updated><id>http://localhost:4000/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float</id><content type="html" xml:base="http://localhost:4000/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float.html"><![CDATA[<p>If you’ve ever written a simple calculation in Java (or C++, C#, etc.) and gotten a result that looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="o">);</span>
+<span class="c1">// Output: 0.30000000000000004</span></code></pre></figure>
+
+<p>…then you’ve already encountered the fundamental flaw of floating-point arithmetic.</p>
+
+<p>When building applications, choosing the right numeric type is critical. The two most common contenders for decimal numbers are <code class="language-plaintext highlighter-rouge">double</code> (a primitive floating-point type) and <code class="language-plaintext highlighter-rouge">BigDecimal</code> (an arbitrary-precision signed decimal number).</p>
+
+<p>But when should you use <code class="language-plaintext highlighter-rouge">BigDecimal</code> over <code class="language-plaintext highlighter-rouge">double</code>? Let’s break it down.</p>
+
+<h2 id="the-problem-with-double">The Problem with double</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">double</code> data type is based on the <strong>IEEE 754 standard</strong> for floating-point arithmetic. It stores numbers in base-2 (binary) fractions.</p>
+
+<p>While base-2 is fantastic for computers, it is terrible at representing exact base-10 (decimal) fractions. Just like you can’t perfectly represent <code class="language-plaintext highlighter-rouge">1/3</code> in base-10 (it becomes <code class="language-plaintext highlighter-rouge">0.33333...</code>), you can’t perfectly represent <code class="language-plaintext highlighter-rouge">0.1</code> or <code class="language-plaintext highlighter-rouge">0.2</code> in base-2. The computer stores the closest possible approximation, which leads to tiny rounding errors.</p>
+
+<p>For most applications, a tiny rounding error doesn’t matter. But if you are calculating the total cost of a shopping cart, those tiny errors compound, eventually resulting in missing or extra pennies.</p>
+
+<h2 id="enter-bigdecimal">Enter BigDecimal</h2>
+
+<p><code class="language-plaintext highlighter-rouge">BigDecimal</code> solves this by representing numbers in base-10, exactly as humans do. It allows for arbitrary precision, meaning it won’t lose accuracy no matter how many decimal places you need. Furthermore, it gives you strict control over <strong>rounding modes</strong> (e.g., <code class="language-plaintext highlighter-rouge">HALF_UP</code>, <code class="language-plaintext highlighter-rouge">CEILING</code>, <code class="language-plaintext highlighter-rouge">FLOOR</code>).</p>
+
+<h3 id="the-golden-rule-of-bigdecimal">The Golden Rule of BigDecimal</h3>
+<p>When creating a <code class="language-plaintext highlighter-rouge">BigDecimal</code>, <strong>never pass a <code class="language-plaintext highlighter-rouge">double</code> or <code class="language-plaintext highlighter-rouge">float</code> into the constructor</strong>, or you will inherit the floating-point inaccuracy!</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// ❌ BAD: Inherits the double's imprecision</span>
+<span class="nc">BigDecimal</span> <span class="n">bad</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="mf">0.1</span><span class="o">);</span> 
+
+<span class="c1">// ✅ GOOD: Pass a String to ensure exact base-10 representation</span>
+<span class="nc">BigDecimal</span> <span class="n">good</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.1"</span><span class="o">);</span> 
+
+<span class="c1">// ✅ ALSO GOOD: Use the valueOf factory method</span>
+<span class="nc">BigDecimal</span> <span class="n">alsoGood</span> <span class="o">=</span> <span class="nc">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">0.1</span><span class="o">);</span></code></pre></figure>
+
+<h2 id="when-to-use-bigdecimal">When to use BigDecimal</h2>
+
+<p>You should always use BigDecimal when:</p>
+
+<ol>
+  <li>Handling Money and Finance: This is the #1 use case. If you are building an e-commerce platform, a banking app, or an accounting system, use BigDecimal. You cannot afford to lose fractions of a cent due to binary rounding.</li>
+  <li>Exact Decimal Representation is Required: If your business logic dictates that 1.0 / 3.0 must be handled with a specific, controlled rounding rule rather than an infinite binary approximation.</li>
+  <li>Dealing with Very Large or Very Small Numbers: BigDecimal can handle numbers far beyond the limits of double without overflowing to Infinity or losing precision to NaN.</li>
+  <li>Regulatory Compliance: Many financial and legal regulations explicitly require exact decimal.</li>
+</ol>
+
+<h2 id="when-to-use-double">When to use double</h2>
+
+<p>You should use double (or float) when:</p>
+
+<ol>
+  <li>Performance and Memory are Critical: double is a primitive type (64 bits). BigDecimal is a complex Java object that requires heap allocation, garbage collection, and significantly more CPU cycles. double is vastly faster.</li>
+  <li>Scientific Computing and Engineering: If you are calculating physics simulations, fluid dynamics, or machine learning weights, the slight loss of precision is entirely acceptable, and the performance gain is mandatory.</li>
+  <li>Graphics and Game Development: Rendering engines, 3D coordinates, and audio processing rely heavily on floating-point math. The hardware (GPUs) is literally optimized to process IEEE 754 float and double natively.</li>
+  <li>Approximations are Fine: If you are calculating the percentage of a progress bar, or the average temperature of a room, a microscopic rounding error will never be noticed by the end user.</li>
+</ol>]]></content><author><name>Shivansh Anand</name></author><category term="Software Engineering" /><category term="Java" /><category term="java" /><category term="bigdecimal" /><category term="double" /><category term="floating-point" /><category term="finance" /><category term="best-practices" /><summary type="html"><![CDATA[A practical guide on the differences between double and BigDecimal, why floating-point math can be dangerous, and exactly when you should use each.]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2026/07/23/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2026-07-23T00:22:34+05:30</published><updated>2026-07-23T00:22:34+05:30</updated><id>http://localhost:4000/jekyll/update/2026/07/23/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2026/07/23/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
 
 <p>Jekyll requires blog post files to be named according to the following format:</p>
 

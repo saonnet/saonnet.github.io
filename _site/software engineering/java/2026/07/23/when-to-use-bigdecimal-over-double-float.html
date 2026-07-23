@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>BigDecimal vs Double: When to Use Which (And Why Your Math Might Be Wrong) | Shivansh Anand</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="BigDecimal vs Double: When to Use Which (And Why Your Math Might Be Wrong)" />
+<meta name="author" content="Shivansh Anand" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A practical guide on the differences between double and BigDecimal, why floating-point math can be dangerous, and exactly when you should use each." />
+<meta name="twitter:description" property="og:description" content="A practical guide on the differences between double and BigDecimal, why floating-point math can be dangerous, and exactly when you should use each." />
+<link rel="canonical" href="http://localhost:4000/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float.html" />
+<meta property="og:url" content="http://localhost:4000/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float.html" />
+<meta property="og:site_name" content="Shivansh Anand" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-07-23T13:30:00+05:30" />
+<meta property="article:modified_time" content="2026-07-23T13:30:00+05:30" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="BigDecimal vs Double: When to Use Which (And Why Your Math Might Be Wrong)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Shivansh Anand"},"dateModified":"2026-07-23T13:30:00+05:30","datePublished":"2026-07-23T13:30:00+05:30","description":"A practical guide on the differences between double and BigDecimal, why floating-point math can be dangerous, and exactly when you should use each.","headline":"BigDecimal vs Double: When to Use Which (And Why Your Math Might Be Wrong)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float.html"},"url":"http://localhost:4000/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Shivansh Anand" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Shivansh Anand</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">BigDecimal vs Double: When to Use Which (And Why Your Math Might Be Wrong)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2026-07-23T13:30:00+05:30" itemprop="datePublished">Jul 23, 2026
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Shivansh Anand</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>If you’ve ever written a simple calculation in Java (or C++, C#, etc.) and gotten a result that looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="o">);</span>
+<span class="c1">// Output: 0.30000000000000004</span></code></pre></figure>
+
+<p>…then you’ve already encountered the fundamental flaw of floating-point arithmetic.</p>
+
+<p>When building applications, choosing the right numeric type is critical. The two most common contenders for decimal numbers are <code class="language-plaintext highlighter-rouge">double</code> (a primitive floating-point type) and <code class="language-plaintext highlighter-rouge">BigDecimal</code> (an arbitrary-precision signed decimal number).</p>
+
+<p>But when should you use <code class="language-plaintext highlighter-rouge">BigDecimal</code> over <code class="language-plaintext highlighter-rouge">double</code>? Let’s break it down.</p>
+
+<h2 id="the-problem-with-double">The Problem with double</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">double</code> data type is based on the <strong>IEEE 754 standard</strong> for floating-point arithmetic. It stores numbers in base-2 (binary) fractions.</p>
+
+<p>While base-2 is fantastic for computers, it is terrible at representing exact base-10 (decimal) fractions. Just like you can’t perfectly represent <code class="language-plaintext highlighter-rouge">1/3</code> in base-10 (it becomes <code class="language-plaintext highlighter-rouge">0.33333...</code>), you can’t perfectly represent <code class="language-plaintext highlighter-rouge">0.1</code> or <code class="language-plaintext highlighter-rouge">0.2</code> in base-2. The computer stores the closest possible approximation, which leads to tiny rounding errors.</p>
+
+<p>For most applications, a tiny rounding error doesn’t matter. But if you are calculating the total cost of a shopping cart, those tiny errors compound, eventually resulting in missing or extra pennies.</p>
+
+<h2 id="enter-bigdecimal">Enter BigDecimal</h2>
+
+<p><code class="language-plaintext highlighter-rouge">BigDecimal</code> solves this by representing numbers in base-10, exactly as humans do. It allows for arbitrary precision, meaning it won’t lose accuracy no matter how many decimal places you need. Furthermore, it gives you strict control over <strong>rounding modes</strong> (e.g., <code class="language-plaintext highlighter-rouge">HALF_UP</code>, <code class="language-plaintext highlighter-rouge">CEILING</code>, <code class="language-plaintext highlighter-rouge">FLOOR</code>).</p>
+
+<h3 id="the-golden-rule-of-bigdecimal">The Golden Rule of BigDecimal</h3>
+<p>When creating a <code class="language-plaintext highlighter-rouge">BigDecimal</code>, <strong>never pass a <code class="language-plaintext highlighter-rouge">double</code> or <code class="language-plaintext highlighter-rouge">float</code> into the constructor</strong>, or you will inherit the floating-point inaccuracy!</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// ❌ BAD: Inherits the double's imprecision</span>
+<span class="nc">BigDecimal</span> <span class="n">bad</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="mf">0.1</span><span class="o">);</span> 
+
+<span class="c1">// ✅ GOOD: Pass a String to ensure exact base-10 representation</span>
+<span class="nc">BigDecimal</span> <span class="n">good</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigDecimal</span><span class="o">(</span><span class="s">"0.1"</span><span class="o">);</span> 
+
+<span class="c1">// ✅ ALSO GOOD: Use the valueOf factory method</span>
+<span class="nc">BigDecimal</span> <span class="n">alsoGood</span> <span class="o">=</span> <span class="nc">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">0.1</span><span class="o">);</span></code></pre></figure>
+
+<h2 id="when-to-use-bigdecimal">When to use BigDecimal</h2>
+
+<p>You should always use BigDecimal when:</p>
+
+<ol>
+  <li>Handling Money and Finance: This is the #1 use case. If you are building an e-commerce platform, a banking app, or an accounting system, use BigDecimal. You cannot afford to lose fractions of a cent due to binary rounding.</li>
+  <li>Exact Decimal Representation is Required: If your business logic dictates that 1.0 / 3.0 must be handled with a specific, controlled rounding rule rather than an infinite binary approximation.</li>
+  <li>Dealing with Very Large or Very Small Numbers: BigDecimal can handle numbers far beyond the limits of double without overflowing to Infinity or losing precision to NaN.</li>
+  <li>Regulatory Compliance: Many financial and legal regulations explicitly require exact decimal.</li>
+</ol>
+
+<h2 id="when-to-use-double">When to use double</h2>
+
+<p>You should use double (or float) when:</p>
+
+<ol>
+  <li>Performance and Memory are Critical: double is a primitive type (64 bits). BigDecimal is a complex Java object that requires heap allocation, garbage collection, and significantly more CPU cycles. double is vastly faster.</li>
+  <li>Scientific Computing and Engineering: If you are calculating physics simulations, fluid dynamics, or machine learning weights, the slight loss of precision is entirely acceptable, and the performance gain is mandatory.</li>
+  <li>Graphics and Game Development: Rendering engines, 3D coordinates, and audio processing rely heavily on floating-point math. The hardware (GPUs) is literally optimized to process IEEE 754 float and double natively.</li>
+  <li>Approximations are Fine: If you are calculating the percentage of a progress bar, or the average temperature of a room, a microscopic rounding error will never be noticed by the end user.</li>
+</ol>
+
+  </div><a class="u-url" href="/software%20engineering/java/2026/07/23/when-to-use-bigdecimal-over-double-float.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Shivansh Anand</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Shivansh Anand</li><li><a class="u-email" href="mailto:saonnet@outlook.com">saonnet@outlook.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/saonnet"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">saonnet</span></a></li><li><a href="https://www.linkedin.com/in/saonnet"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">saonnet</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A blog about software engineering, backend architecture, and clean systems.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
